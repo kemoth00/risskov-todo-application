@@ -31,8 +31,21 @@
 </template>
 
 <script setup lang="ts">
-const { todos, total, currentPage, totalPages, loading, isPaginating, error, fetchTodos, addTodo, toggleTodo, deleteTodo, clearError, setPage } =
-  useTodos();
+const {
+  todos,
+  total,
+  currentPage,
+  totalPages,
+  loading,
+  isPaginating,
+  error,
+  fetchTodos,
+  addTodo,
+  toggleTodo,
+  deleteTodo,
+  clearError,
+  setPage,
+} = useTodos();
 
 useHead({ title: 'Todos' });
 

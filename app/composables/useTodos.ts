@@ -10,7 +10,7 @@ export function useTodos() {
   const todos = useState<Todo[]>('todos', () => []);
   const total = useState<number>('todos.total', () => 0);
   const currentPage = useState<number>('todos.currentPage', () => 1);
-  const loading = useState<boolean>('todos.loading', () => false);
+  const loading = useState<boolean>('todos.loading', () => true);
   const error = useState<string | null>('todos.error', () => null);
   const isPaginating = useState<boolean>('todos.isPaginating', () => false);
 
@@ -148,6 +148,7 @@ export function useTodos() {
     if (isAddedItem(id)) {
       addedDeletedIds.value = [...addedDeletedIds.value, id];
       await fetchTodos();
+      goBackIfPageEmpty();
       return;
     }
 
@@ -160,6 +161,7 @@ export function useTodos() {
     toggledItems.value = restToggled;
 
     await fetchTodos();
+    goBackIfPageEmpty();
 
     try {
       await removeTodo(id);
@@ -167,6 +169,12 @@ export function useTodos() {
       deletedApiItems.value = deletedApiItems.value.filter((d) => d.id !== id);
       await fetchTodos();
       error.value = err instanceof Error ? err.message : 'Failed to delete todo.';
+    }
+  }
+
+  function goBackIfPageEmpty() {
+    if (todos.value.length === 0 && currentPage.value > 1) {
+      setPage(currentPage.value - 1);
     }
   }
 

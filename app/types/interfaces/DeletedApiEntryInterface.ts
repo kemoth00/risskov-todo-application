@@ -1,4 +1,4 @@
 export interface DeletedApiEntry {
-  id: number
-  pos: number
+  id: number;
+  pos: number;
 }
