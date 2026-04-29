@@ -1,4 +1,4 @@
-import type { Todo } from './TodoInterface'
+import type { Todo } from './TodoInterface';
 
 
 export interface TodosResponseInterface {

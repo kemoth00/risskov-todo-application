@@ -2,25 +2,37 @@
 @use 'mixins' as *;
 
 .app-pagination {
-  @include flex-row($spacing-4);
-  justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
   padding: $spacing-4 0;
+
+  @include respond-to($bp-sm) {
+    justify-content: center;
+    gap: $spacing-6;
+  }
 
   &__btn {
     @include button-reset;
     @include touch-target;
-    padding: $spacing-2 $spacing-4;
+    padding: $spacing-2 $spacing-3;
     border: 1px solid $border-color;
     border-radius: $radius-md;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $text-primary;
     background-color: $bg-card;
-    transition: background-color $transition-fast, border-color $transition-fast;
+    transition: background-color $transition-fast, border-color $transition-fast, box-shadow $transition-fast;
+
+    @include respond-to($bp-sm) {
+      padding: $spacing-2 $spacing-4;
+    }
 
     &:hover:not(:disabled) {
       background-color: $gray-100;
       border-color: $gray-300;
+      box-shadow: $shadow-sm;
     }
 
     &:disabled {
@@ -30,8 +42,23 @@
   }
 
   &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+    text-align: center;
+  }
+
+  &__page {
     font-size: $font-size-sm;
-    color: $text-secondary;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    white-space: nowrap;
+  }
+
+  &__range {
+    font-size: $font-size-xs;
+    color: $text-muted;
     white-space: nowrap;
   }
 }

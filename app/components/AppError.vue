@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ message: string }>()
-defineEmits<{ dismiss: [] }>()
+defineProps<{ message: string }>();
+defineEmits<{ dismiss: [] }>();
 </script>
 

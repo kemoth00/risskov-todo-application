@@ -5,6 +5,18 @@
   flex-direction: column;
   gap: $spacing-4;
 
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    transition: opacity $transition-base;
+
+    &--loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
   &__pagination {
     margin-top: $spacing-2;
   }

@@ -6,9 +6,14 @@
 
     <AppLoader v-if="loading && todos.length === 0" />
 
-    <template v-else>
+    <div
+      v-else
+      class="index-page__content"
+      :class="{ 'index-page__content--loading': loading }"
+    >
       <TodoList
         :todos="todos"
+        :paginating="isPaginating"
         @toggle="toggleTodo"
         @delete="deleteTodo"
       />
@@ -21,14 +26,16 @@
         class="index-page__pagination"
         @page-change="setPage"
       />
-    </template>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { todos, total, currentPage, totalPages, loading, error, fetchTodos, addTodo, toggleTodo, deleteTodo, clearError, setPage } =
-  useTodos()
+const { todos, total, currentPage, totalPages, loading, isPaginating, error, fetchTodos, addTodo, toggleTodo, deleteTodo, clearError, setPage } =
+  useTodos();
 
-onMounted(fetchTodos)
+useHead({ title: 'Todos' });
+
+onMounted(fetchTodos);
 </script>
 

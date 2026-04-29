@@ -1,7 +1,7 @@
 <template>
   <div class="todo-list">
     <AppEmpty v-if="todos.length === 0" />
-    <TransitionGroup v-else name="todo-list" tag="ul" class="todo-list__items">
+    <TransitionGroup v-else :name="paginating ? '' : 'todo-list'" tag="ul" class="todo-list__items">
       <TodoItem
         v-for="todo in todos"
         :key="todo.id"
@@ -14,9 +14,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Todo } from '~/types/interfaces/TodoInterface'
+import type { Todo } from '~/types/interfaces/TodoInterface';
 
-defineProps<{ todos: Todo[] }>()
-defineEmits<{ toggle: [id: number]; delete: [id: number] }>()
+defineProps<{ todos: Todo[]; paginating?: boolean }>();
+defineEmits<{ toggle: [id: number]; delete: [id: number] }>();
 </script>
 

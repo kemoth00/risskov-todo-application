@@ -13,5 +13,6 @@ export default withNuxt()
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
+      'semi': ['error', 'always'],
     },
   })

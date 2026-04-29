@@ -6,7 +6,15 @@
   @include card;
   padding: $spacing-3 $spacing-4;
   list-style: none;
-  transition: opacity $transition-base;
+  transition: box-shadow $transition-fast, opacity $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  &--completed {
+    background-color: $gray-50;
+  }
 
   &--completed &__text {
     text-decoration: line-through;
@@ -27,6 +35,10 @@
     color: $text-primary;
     cursor: pointer;
     line-height: $line-height-normal;
+    // Allow long words to break so text never overflows on narrow screens
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
   }
 
   &__delete {

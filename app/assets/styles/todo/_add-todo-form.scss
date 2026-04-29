@@ -5,6 +5,10 @@
   @include card;
   padding: $spacing-4;
 
+  @include respond-to($bp-md) {
+    padding: $spacing-5 $spacing-6;
+  }
+
   &__label {
     display: block;
     margin-bottom: $spacing-2;
@@ -13,8 +17,17 @@
     color: $text-secondary;
   }
 
+  // Mobile-first: stack vertically; row on larger screens
   &__row {
-    @include flex-row($spacing-3);
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+
+    @include respond-to($bp-sm) {
+      flex-direction: row;
+      align-items: center;
+      gap: $spacing-3;
+    }
   }
 
   &__input {
@@ -49,17 +62,24 @@
 
   &__submit {
     @include button-reset;
+    @include touch-target;
+    width: 100%;
     padding: $spacing-2 $spacing-5;
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     color: $text-inverted;
     background-color: $primary;
     border-radius: $radius-md;
-    white-space: nowrap;
-    transition: background-color $transition-fast;
+    transition: background-color $transition-fast, box-shadow $transition-fast;
+
+    @include respond-to($bp-sm) {
+      width: auto;
+      white-space: nowrap;
+    }
 
     &:hover:not(:disabled) {
       background-color: $primary-hover;
+      box-shadow: $shadow-md;
     }
 
     &:disabled {

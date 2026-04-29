@@ -3,11 +3,20 @@
 
 .app-empty {
   @include flex-center;
+  flex-direction: column;
+  gap: $spacing-3;
   padding: $spacing-12 $spacing-4;
+
+  &__icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    user-select: none;
+  }
 
   &__message {
     font-size: $font-size-base;
     color: $text-secondary;
     margin: 0;
+    text-align: center;
   }
 }

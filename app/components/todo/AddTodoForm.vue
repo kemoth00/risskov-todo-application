@@ -12,7 +12,7 @@
         maxlength="500"
         autocomplete="off"
         @input="validationError = ''"
-      />
+      >
       <button class="add-todo-form__submit" type="submit">Add</button>
     </div>
     <p v-if="validationError" class="add-todo-form__validation" role="alert">
@@ -22,20 +22,20 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits<{ submit: [text: string] }>()
+const emit = defineEmits<{ submit: [text: string] }>();
 
-const text = ref('')
-const validationError = ref('')
+const text = ref('');
+const validationError = ref('');
 
 function handleSubmit() {
-  const trimmed = text.value.trim()
+  const trimmed = text.value.trim();
 
   if (!trimmed) {
-    validationError.value = 'Please enter a todo.'
-    return
+    validationError.value = 'Please enter a todo.';
+    return;
   }
 
-  emit('submit', trimmed)
-  text.value = ''
+  emit('submit', trimmed);
+  text.value = '';
 }
 </script>
