@@ -12,16 +12,33 @@ export function useTodos() {
   const loading = useState<boolean>('todos.loading', () => false)
   const error = useState<string | null>('todos.error', () => null)
 
+  const localAdded = useState<Todo[]>('todos.localAdded', () => [])
+  const localDeleted = useState<number[]>('todos.localDeleted', () => [])
+  const localToggled = useState<Record<number, boolean>>('todos.localToggled', () => ({}))
+
   const totalPages = computed(() => Math.ceil(total.value / LIMIT))
   const skip = computed(() => (currentPage.value - 1) * LIMIT)
+
+  function applyLocalOverrides(fetched: Todo[]): Todo[] {
+    return fetched
+      .filter((t) => !localDeleted.value.includes(t.id))
+      .map((t) =>
+        localToggled.value[t.id] !== undefined
+          ? { ...t, completed: localToggled.value[t.id]! }
+          : t,
+      )
+  }
 
   async function fetchTodos() {
     loading.value = true
     error.value = null
     try {
       const data = await fetchPage(LIMIT, skip.value)
-      todos.value = data.todos
-      total.value = data.total
+      const filtered = applyLocalOverrides(data.todos)
+
+      todos.value = currentPage.value === 1 ? [...localAdded.value, ...filtered] : filtered
+
+      total.value = data.total + localAdded.value.length - localDeleted.value.length
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to load todos.'
     } finally {
@@ -30,17 +47,22 @@ export function useTodos() {
   }
 
   async function addTodo(text: string) {
-    const payload = { todo: text, completed: false, userId: FIXED_USER_ID }
-    const tempId = Date.now()
+    const trimmed = text.trim()
+    if (!trimmed) return
 
-    todos.value.unshift({ id: tempId, ...payload })
+    const tempId = Date.now()
+    const newTodo: Todo = { id: tempId, todo: trimmed, completed: false, userId: FIXED_USER_ID }
+
+    localAdded.value = [newTodo, ...localAdded.value]
+    if (currentPage.value === 1) {
+      todos.value = [newTodo, ...todos.value]
+    }
     total.value += 1
 
     try {
-      const created = await createTodo(payload)
-      const idx = todos.value.findIndex((t) => t.id === tempId)
-      if (idx !== -1) todos.value[idx] = created
+      await createTodo({ todo: trimmed, completed: false, userId: FIXED_USER_ID })
     } catch (err) {
+      localAdded.value = localAdded.value.filter((t) => t.id !== tempId)
       todos.value = todos.value.filter((t) => t.id !== tempId)
       total.value -= 1
       error.value = err instanceof Error ? err.message : 'Failed to add todo.'
@@ -51,11 +73,23 @@ export function useTodos() {
     const todo = todos.value.find((t) => t.id === id)
     if (!todo) return
 
-    todo.completed = !todo.completed
+    const newCompleted = !todo.completed
+    todo.completed = newCompleted
+
+    const isLocallyAdded = localAdded.value.some((t) => t.id === id)
+    if (isLocallyAdded) {
+      const localTodo = localAdded.value.find((t) => t.id === id)
+      if (localTodo) localTodo.completed = newCompleted
+      return
+    }
+
+    localToggled.value = { ...localToggled.value, [id]: newCompleted }
+
     try {
-      await updateTodo(id, todo.completed)
+      await updateTodo(id, newCompleted)
     } catch (err) {
-      todo.completed = !todo.completed
+      todo.completed = !newCompleted
+      localToggled.value = { ...localToggled.value, [id]: !newCompleted }
       error.value = err instanceof Error ? err.message : 'Failed to update todo.'
     }
   }
@@ -68,11 +102,26 @@ export function useTodos() {
     todos.value.splice(idx, 1)
     total.value -= 1
 
+    const isLocallyAdded = localAdded.value.some((t) => t.id === id)
+    if (isLocallyAdded) {
+      localAdded.value = localAdded.value.filter((t) => t.id !== id)
+      return
+    }
+
+    if (!localDeleted.value.includes(id)) {
+      localDeleted.value = [...localDeleted.value, id]
+    }
+
+    const newToggled = { ...localToggled.value }
+    delete newToggled[id]
+    localToggled.value = newToggled
+
     try {
       await removeTodo(id)
     } catch (err) {
       todos.value.splice(idx, 0, removed)
       total.value += 1
+      localDeleted.value = localDeleted.value.filter((i) => i !== id)
       error.value = err instanceof Error ? err.message : 'Failed to delete todo.'
     }
   }

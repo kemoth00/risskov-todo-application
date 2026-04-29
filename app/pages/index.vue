@@ -2,6 +2,8 @@
   <div class="index-page">
     <AppError v-if="error" :message="error" @dismiss="clearError" />
 
+    <TodoAddTodoForm @submit="addTodo" />
+
     <AppLoader v-if="loading && todos.length === 0" />
 
     <template v-else>
@@ -24,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-const { todos, total, currentPage, totalPages, loading, error, fetchTodos, toggleTodo, deleteTodo, clearError, setPage } =
+const { todos, total, currentPage, totalPages, loading, error, fetchTodos, addTodo, toggleTodo, deleteTodo, clearError, setPage } =
   useTodos()
 
 onMounted(fetchTodos)
