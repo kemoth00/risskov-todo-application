@@ -28,12 +28,12 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    currentPage: number
-    totalPages: number
-    total: number
-    limit?: number
+    currentPage: number;
+    totalPages: number;
+    total: number;
+    limit?: number;
   }>(),
-  { limit: 10 },
+  { limit: 10 }
 );
 
 defineEmits<{ 'page-change': [page: number] }>();
@@ -41,4 +41,3 @@ defineEmits<{ 'page-change': [page: number] }>();
 const from = computed(() => (props.currentPage - 1) * props.limit + 1);
 const to = computed(() => Math.min(props.currentPage * props.limit, props.total));
 </script>
-

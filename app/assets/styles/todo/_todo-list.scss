@@ -12,7 +12,9 @@
 
 .todo-list-enter-active,
 .todo-list-leave-active {
-  transition: opacity $transition-base, transform $transition-base;
+  transition:
+    opacity $transition-base,
+    transform $transition-base;
 }
 
 .todo-list-enter-from,

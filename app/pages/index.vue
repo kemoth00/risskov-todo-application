@@ -6,11 +6,7 @@
 
     <AppLoader v-if="loading && todos.length === 0" />
 
-    <div
-      v-else
-      class="index-page__content"
-      :class="{ 'index-page__content--loading': loading }"
-    >
+    <div v-else class="index-page__content" :class="{ 'index-page__content--loading': loading }">
       <TodoList
         :todos="todos"
         :paginating="isPaginating"
@@ -51,4 +47,3 @@ useHead({ title: 'Todos' });
 
 onMounted(fetchTodos);
 </script>
-

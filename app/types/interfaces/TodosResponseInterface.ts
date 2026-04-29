@@ -1,6 +1,5 @@
 import type { Todo } from './TodoInterface';
 
-
 export interface TodosResponseInterface {
   todos: Todo[];
   total: number;

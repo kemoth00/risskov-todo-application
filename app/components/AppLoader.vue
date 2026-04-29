@@ -4,5 +4,3 @@
     <span class="app-loader__text">Loading…</span>
   </div>
 </template>
-
-

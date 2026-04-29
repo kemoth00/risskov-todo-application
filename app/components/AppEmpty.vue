@@ -10,4 +10,3 @@ withDefaults(defineProps<{ message?: string }>(), {
   message: 'No todos yet. Add one above!',
 });
 </script>
-

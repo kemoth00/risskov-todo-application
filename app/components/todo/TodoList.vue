@@ -19,4 +19,3 @@ import type { Todo } from '~/types/interfaces/TodoInterface';
 defineProps<{ todos: Todo[]; paginating?: boolean }>();
 defineEmits<{ toggle: [id: number]; delete: [id: number] }>();
 </script>
-

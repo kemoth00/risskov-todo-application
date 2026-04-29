@@ -9,4 +9,3 @@
 defineProps<{ message: string }>();
 defineEmits<{ dismiss: [] }>();
 </script>
-

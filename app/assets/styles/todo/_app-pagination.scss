@@ -23,7 +23,10 @@
     font-weight: $font-weight-medium;
     color: $text-primary;
     background-color: $bg-card;
-    transition: background-color $transition-fast, border-color $transition-fast, box-shadow $transition-fast;
+    transition:
+      background-color $transition-fast,
+      border-color $transition-fast,
+      box-shadow $transition-fast;
 
     @include respond-to($bp-sm) {
       padding: $spacing-2 $spacing-4;

@@ -68,7 +68,10 @@ export function useTodos() {
       const apiSlotsNeeded = PAGE_SIZE - addedOnPage.length;
 
       const apiSkip = computeApiSkip(currentPage.value);
-      const data = await fetchPage(Math.max(apiSlotsNeeded + deletedApiItems.value.length, 1), apiSkip);
+      const data = await fetchPage(
+        Math.max(apiSlotsNeeded + deletedApiItems.value.length, 1),
+        apiSkip
+      );
       const withPositions = data.todos.map((t, i) => ({ todo: t, pos: apiSkip + i }));
 
       const visibleWithPositions = withPositions
@@ -78,7 +81,7 @@ export function useTodos() {
       const apiItems = visibleWithPositions.map(({ todo }) =>
         toggledItems.value[todo.id] !== undefined
           ? { ...todo, completed: toggledItems.value[todo.id]! }
-          : todo,
+          : todo
       );
 
       const updatedPositions = { ...apiPositionMap.value };
@@ -123,7 +126,7 @@ export function useTodos() {
     if (!todo) return;
 
     const newCompleted = !todo.completed;
-    todo.completed = newCompleted; 
+    todo.completed = newCompleted;
 
     if (isAddedItem(id)) {
       const item = addedItems.value.find((t) => t.id === id);
@@ -206,4 +209,3 @@ export function useTodos() {
     clearError,
   };
 }
-

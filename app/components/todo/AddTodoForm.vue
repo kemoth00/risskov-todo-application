@@ -12,7 +12,7 @@
         maxlength="500"
         autocomplete="off"
         @input="validationError = ''"
-      >
+      />
       <button class="add-todo-form__submit" type="submit">Add</button>
     </div>
     <p v-if="validationError" class="add-todo-form__validation" role="alert">

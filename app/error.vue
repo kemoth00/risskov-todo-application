@@ -11,4 +11,3 @@
 <script setup lang="ts">
 defineProps<{ error: { statusCode: number; message?: string } }>();
 </script>
-

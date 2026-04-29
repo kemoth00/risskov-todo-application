@@ -21,14 +21,14 @@ It fetches todos from the [DummyJSON](https://dummyjson.com/todos) public API an
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | [Nuxt 4](https://nuxt.com) + Vue 3 Composition API |
-| Language | TypeScript (strict mode) |
-| Styling | SCSS — BEM, design tokens, mixins |
-| Linting | ESLint via `@nuxt/eslint` |
-| Formatting | Prettier |
-| Data | [DummyJSON](https://dummyjson.com) public REST API |
+| Layer      | Technology                                         |
+| ---------- | -------------------------------------------------- |
+| Framework  | [Nuxt 4](https://nuxt.com) + Vue 3 Composition API |
+| Language   | TypeScript (strict mode)                           |
+| Styling    | SCSS — BEM, design tokens, mixins                  |
+| Linting    | ESLint via `@nuxt/eslint`                          |
+| Formatting | Prettier                                           |
+| Data       | [DummyJSON](https://dummyjson.com) public REST API |
 
 ---
 
@@ -60,13 +60,13 @@ app/
 
 DummyJSON simulates mutations but does not persist them. The app tracks all changes locally:
 
-| Store | Purpose |
-|---|---|
-| `addedItems` | Todos added this session (never shortened, anchors API offset) |
-| `addedDeletedIds` | IDs of `addedItems` that were soft-deleted |
-| `deletedApiItems` | API todos deleted, stored with their raw stream position |
-| `toggledItems` | Completion-state overrides for toggled API todos |
-| `apiPositionMap` | Maps `todo.id → stream position`, stamped at each fetch |
+| Store             | Purpose                                                        |
+| ----------------- | -------------------------------------------------------------- |
+| `addedItems`      | Todos added this session (never shortened, anchors API offset) |
+| `addedDeletedIds` | IDs of `addedItems` that were soft-deleted                     |
+| `deletedApiItems` | API todos deleted, stored with their raw stream position       |
+| `toggledItems`    | Completion-state overrides for toggled API todos               |
+| `apiPositionMap`  | Maps `todo.id → stream position`, stamped at each fetch        |
 
 The `computeApiSkip(page)` helper walks the raw API stream page-by-page, consuming non-deleted slots, to compute the exact `skip` value for any page — accounting for both local additions and deletions simultaneously.
 
@@ -92,4 +92,3 @@ npm run lint:fix     # ESLint auto-fix
 npm run format       # Prettier format
 npm run typecheck    # TypeScript type check
 ```
-

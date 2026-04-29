@@ -6,7 +6,9 @@
   @include card;
   padding: $spacing-3 $spacing-4;
   list-style: none;
-  transition: box-shadow $transition-fast, opacity $transition-base;
+  transition:
+    box-shadow $transition-fast,
+    opacity $transition-base;
 
   &:hover {
     box-shadow: $shadow-md;
@@ -51,7 +53,9 @@
     border-radius: $radius-md;
     font-size: $font-size-sm;
     color: $text-muted;
-    transition: color $transition-fast, background-color $transition-fast;
+    transition:
+      color $transition-fast,
+      background-color $transition-fast;
 
     &:hover {
       color: $danger;

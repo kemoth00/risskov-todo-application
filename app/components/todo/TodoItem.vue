@@ -6,7 +6,7 @@
       type="checkbox"
       :checked="todo.completed"
       @change="$emit('toggle', todo.id)"
-    >
+    />
     <label :for="`todo-${todo.id}`" class="todo-item__text">
       {{ todo.todo }}
     </label>
@@ -27,4 +27,3 @@ import type { Todo } from '~/types/interfaces/TodoInterface';
 defineProps<{ todo: Todo }>();
 defineEmits<{ toggle: [id: number]; delete: [id: number] }>();
 </script>
-
