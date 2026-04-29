@@ -5,6 +5,7 @@ export default withNuxt()
   .override('nuxt/vue/rules', {
     rules: {
       'vue/multi-word-component-names': 'off',
+      'vue/html-self-closing': ['warn', { html: { void: 'always' } }],
     },
   })
   .override('nuxt/typescript/rules', {
