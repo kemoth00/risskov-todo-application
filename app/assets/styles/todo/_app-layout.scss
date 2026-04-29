@@ -1,0 +1,23 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-layout {
+  min-height: 100vh;
+  background-color: $bg-page;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    flex: 1;
+    padding: $spacing-6 $container-padding-x;
+
+    @include respond-to($bp-md) {
+      padding: $spacing-8 $container-padding-x-md;
+    }
+  }
+
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,11 @@
+@use 'variables' as *;
+
+.index-page {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  &__pagination {
+    margin-top: $spacing-2;
+  }
+}

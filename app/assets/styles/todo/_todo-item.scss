@@ -1,0 +1,49 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.todo-item {
+  @include flex-row($spacing-3);
+  @include card;
+  padding: $spacing-3 $spacing-4;
+  list-style: none;
+  transition: opacity $transition-base;
+
+  &--completed &__text {
+    text-decoration: line-through;
+    color: $text-muted;
+  }
+
+  &__checkbox {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    cursor: pointer;
+    accent-color: $primary;
+  }
+
+  &__text {
+    flex: 1;
+    font-size: $font-size-base;
+    color: $text-primary;
+    cursor: pointer;
+    line-height: $line-height-normal;
+  }
+
+  &__delete {
+    @include button-reset;
+    @include touch-target;
+    @include flex-center;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    color: $text-muted;
+    transition: color $transition-fast, background-color $transition-fast;
+
+    &:hover {
+      color: $danger;
+      background-color: $danger-light;
+    }
+  }
+}

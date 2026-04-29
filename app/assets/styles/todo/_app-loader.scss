@@ -1,0 +1,30 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-loader {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-3;
+  padding: $spacing-12 $spacing-4;
+
+  &__spinner {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid $border-color;
+    border-top-color: $primary;
+    border-radius: $radius-full;
+    animation: spin 0.7s linear infinite;
+  }
+
+  &__text {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

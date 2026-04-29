@@ -1,0 +1,37 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-pagination {
+  @include flex-row($spacing-4);
+  justify-content: center;
+  padding: $spacing-4 0;
+
+  &__btn {
+    @include button-reset;
+    @include touch-target;
+    padding: $spacing-2 $spacing-4;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    background-color: $bg-card;
+    transition: background-color $transition-fast, border-color $transition-fast;
+
+    &:hover:not(:disabled) {
+      background-color: $gray-100;
+      border-color: $gray-300;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__info {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    white-space: nowrap;
+  }
+}

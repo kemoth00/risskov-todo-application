@@ -1,0 +1,31 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-error {
+  @include flex-row($spacing-4);
+  justify-content: space-between;
+  padding: $spacing-3 $spacing-4;
+  background-color: $danger-light;
+  border: 1px solid $danger;
+  border-radius: $radius-md;
+  color: $danger;
+
+  &__message {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    margin: 0;
+  }
+
+  &__dismiss {
+    @include button-reset;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $danger;
+    text-decoration: underline;
+    flex-shrink: 0;
+
+    &:hover {
+      color: $danger-hover;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-empty {
+  @include flex-center;
+  padding: $spacing-12 $spacing-4;
+
+  &__message {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    margin: 0;
+  }
+}

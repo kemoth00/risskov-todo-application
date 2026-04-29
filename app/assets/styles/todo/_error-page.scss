@@ -1,0 +1,49 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.error-page {
+  @include flex-center;
+  min-height: 100vh;
+  background-color: $bg-page;
+  padding: $spacing-4;
+
+  &__card {
+    @include card;
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-4;
+    padding: $spacing-12 $spacing-8;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  &__code {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $primary;
+    margin: 0;
+  }
+
+  &__message {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    margin: 0;
+  }
+
+  &__btn {
+    @include button-reset;
+    @include touch-target;
+    padding: $spacing-2 $spacing-6;
+    background-color: $primary;
+    color: $text-inverted;
+    border-radius: $radius-md;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
